@@ -1,23 +1,19 @@
 from django.contrib import admin
-from django.shortcuts import get_object_or_404
 from .models import Article, ArticleImage, Category
 from .forms import ArticleImageForm
-
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('category', 'slug')
-    prepopulated_fields = {'slug': ('category',)}
-
-admin.site.register(Category, CategoryAdmin)
 
 class ArticleImageInline(admin.TabularInline):
     model = ArticleImage
     form = ArticleImageForm
     extra = 0
 
+@admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'pub_date', 'slug', 'main_page')
     inlines = [ArticleImageInline]
-    prepopulated_fields = {'slug': ('title',)}
-    raw_id_fields = ('category',)
+    list_display = ('title', 'pub_date', 'category')
 
-admin.site.register(Article, ArticleAdmin)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('category', 'slug')
+
+# Реєстрація ArticleImage не потрібна, бо вже є в ArticleAdmin через Inline

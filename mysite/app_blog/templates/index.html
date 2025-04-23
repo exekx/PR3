@@ -2,9 +2,26 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Blog</title>
+    <title>Головна</title>
 </head>
 <body>
-    <h1>Home page</h1>
+    <h1>Категорії</h1>
+    {% if categories %}
+        {% for item in categories %}
+            <div>
+                <a href="{{ item.get_absolute_url }}">{{ item.category }}</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h2>Останні публікації</h2>
+    {% if articles %}
+        {% for item in articles %}
+            <div>
+                <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                <p>{{ item.pub_date|date:"d E Y" }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

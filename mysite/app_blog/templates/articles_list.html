@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Публікації</title>
+</head>
+<body>
+    {% if category %}
+        <h1>{{ category.category }}</h1>
+    {% else %}
+        <h1>Всі публікації</h1>
+    {% endif %}
+
+    {% for item in items %}
+        <div>
+            <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+            <p>{{ item.pub_date|date:"d E Y" }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
